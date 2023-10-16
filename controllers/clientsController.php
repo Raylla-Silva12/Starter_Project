@@ -1,27 +1,20 @@
 <?php
 
-    define('HOST', 'localhost');
-    define('DATABASENAME', 'starter_project');
-    define('USER', 'root');
-    define('PASSWORD', 'usbw');
+    require_once ROOT_PATH .'/models/Client.php';
 
-    class Connect {
-        protected $connection;
+    class clientsController 
+    {
+        private $model;
 
         function __construct()
         {
-            $this->connectDatabase();
+            $this->model = new ClientModel();
         }
 
-        function connectionDatabase() {
-            try
-            {
-                $this->connection = new PDO('mysql:host='.HOST.';dbname='.DATABASENAME, USER, PASSWORD);
-            }
-            catch (PDOException $e)
-            {
-                echo "Error!".$e->getMessage();
-            }
+        function getAll()
+        {
+            $resultData = $this->model->getAll();
+            require_once('./views/index.php');
         }
     }
 
